@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+<div class="container">
+    {% include "home/page_header.html" %}
+    {% image entries.book_image fill-300x450 as img %}
+    <div class="card mb-3" style="max-width: 700px; margin-top: 30px;">
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ entries.name }}</h5>
+              <p class="card-text">{{ entries.description | richtext }}</p>
+              <div style="margin-bottom: 7px;"><strong>Books owner:</strong></div>
+              {% for book in books %}
+                <a class="card-text" href="/{{ book.id }}"><small class="text-muted">{{ book.title }}</small></a><br />
+              {% endfor %}
+              <div style="margin-top: 30px;"><a href="/">Back to Home page</a></div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock content %}

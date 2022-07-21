@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include "home/page_header.html" %}
+    {% if search_results %}
+        <div class="row" style="margin-top: 30px;">
+            <h5 style="margin-bottom: 13px;">All results for "{{ search_query }}"</h5>
+            {% for book in search_results %}
+                <a class="card-text" href="/{{ book.id }}"><span class="text-muted" style="font-size: 17px;">{{ book.title }}</span></a><br />
+            {% endfor %}
+        </div>
+        {% if search_results.has_previous %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% if search_results.has_next %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+        {% endif %}
+    {% elif search_query %}
+        No books found
+    {% else %}
+        Please type something into the search box
+    {% endif %}
+</div>
+{% endblock %}

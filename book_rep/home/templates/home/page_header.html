@@ -1,0 +1,27 @@
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Book Repo</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 300px;">
+            <li class="nav-item">
+              <a class="nav-link" href="/authors/">Authors</a>
+            </li>
+        </ul>
+        <form class="d-flex" style="margin-right: 30px;" action="/" method="get">
+            <input class="form-control me-2" type="search" placeholder="Filter by author" aria-label="Search" name="qf" list="os" {% if search_query %} value="{{ filter_query }}"{% endif %} />
+            <button class="btn btn-outline-success" type="submit">Filter</button>
+        </form>
+        <form class="d-flex" action="{% url 'search' %}" method="get">
+            <input class="form-control me-2" type="search" placeholder="Book title" aria-label="Book title" name="query" {% if search_query %} value="{{ search_query }}"{% endif %}>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<datalist id="os">
+    {% for author in authors %}
+        <option value='{{ author.name }}'>{{ author.name }}</option>
+    {% endfor %}
+</datalist>

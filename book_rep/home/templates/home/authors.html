@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include "home/page_header.html" %}
+    <div class="row" style="margin-top: 30px;">
+        <h5 style="margin-bottom: 13px;">All authors we have</h5>
+        {% for author in entries %}
+            <a class="card-text" href="/authors/{{ author.id }}"><span class="text-muted" style="font-size: 17px;">{{ author.name }}</span></a><br />
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
